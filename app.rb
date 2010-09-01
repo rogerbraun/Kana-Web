@@ -11,6 +11,8 @@ DataMapper.setup(:default, ENV["DATABASE_URL"] || "sqlite:db/dev.db")
 
 DataMapper.auto_upgrade!
 
+enable :settings
+
 facebook do
   api_key "095013a6174927028e52bc5c6652be1e"
   secret "6c06a0379eb2af215a66e76d95a75c4e"
@@ -25,7 +27,7 @@ helpers do
     if session[:uid] then true end
     
     if fb[:user] then
-      session[:uid] = User.get_by_fb.id
+      session[:uid] = User.get_by_fb(fb[:user]).id
       return true
     end
   end
