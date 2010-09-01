@@ -1,26 +1,9 @@
-a, abbr, acronym, address, applet, article, aside, audio,
-b, blockquote, big, body,
-center, canvas, caption, cite, code, command,
-datalist, dd, del, details, dfn, dl, div, dt, 
-em, embed,
-fieldset, figcaption, figure, font, footer, form, 
-h1, h2, h3, h4, h5, h6, header, hgroup, html,
-i, iframe, img, ins,
-kbd, 
-keygen,
-label, legend, li, 
-meter,
-nav,
-object, ol, output,
-p, pre, progress,
-q, 
-s, samp, section, small, span, source, strike, strong, sub, sup,
-table, tbody, tfoot, thead, th, tr, tdvideo, tt,
-u, ul, 
-var{
-    background: transparent;
-    border: 0 none;
-    font-size: 100%;
-    margin: 0;
-    padding: 0;
-    vertical-align: baseline; }
+/* reset.css */
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;}
+body {line-height:1.5;}
+table {border-collapse:separate;border-spacing:0;}
+caption, th, td {text-align:left;font-weight:normal;}
+table, td, th {vertical-align:middle;}
+blockquote:before, blockquote:after, q:before, q:after {content:"";}
+blockquote, q {quotes:"" "";}
+a img {border:none;}
