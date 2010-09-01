@@ -24,6 +24,16 @@ get "/" do
   haml :index
 end
 
+get "/login" do
+  fb.require_login!
+
+  groups = fb.groups.get :uid => fb[:user]
+  "
+  Hey there, now that you're a member I can tell what groups you're in on Facebook: <br>
+  #{groups.map{|g| g['name'] }.join('<br>')}
+  "
+end
+
 get "/facebook" do
   haml :facebook
 end
