@@ -79,6 +79,7 @@ class User
       new_User = User.new
       new_User.facebook_uid = fb_uid
       new_User.save
+      new_User.reset
       new_User
     end
   end
