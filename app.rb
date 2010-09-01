@@ -19,9 +19,26 @@ facebook do
   callback "http://kanaweb.heroku.com"
 end
 
+helpers do
+
+  def logged_in?
+    if session[:uid] then true end
+    
+    if fb[:user] then
+      session[:uid] = User.get_by_fb.id
+      return true
+    end
+  end
+
+  def current_user
+    User.get(session[:uid])
+  end
+ 
+end
+
 get "/" do
 
-  if fb[:user] then
+  if logged_in?
     haml :index
   else
     haml :facebook
@@ -29,9 +46,6 @@ get "/" do
 
 end
 
-get '/' do
-  haml :main
-end
 
 get '/receiver' do
   %[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"

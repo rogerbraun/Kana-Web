@@ -49,6 +49,7 @@ class User
   property :openid, String
   property :email, String
   property :pwhash, String
+  property :facebook_uid, String
   
   has n, :flipcards
 
@@ -62,4 +63,24 @@ class User
     save
   end
 
+  def picture
+    if facebook_uid then
+      "http://graph.facebook.com/#{facebook_uid}/picture?type=square"
+    else
+      "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(email.downcase)}?d=identicon" 
+    end
+  end
+
+  def self.get_by_fb(fb_uid)
+    fb_user = first(:facebook_uid => fb_uid)
+    if fb_user then
+      fb_user
+    else
+      new_User = User.new
+      new_User.facebook_uid = fb_uid
+      new_User.save
+      new_User
+    end
+  end
+  
 end
