@@ -59,6 +59,7 @@ class User
       flipcard = Flipcard.new
       flipcard.kana = kana
       flipcards << flipcard
+      flipcard.save
     end 
     save
   end
