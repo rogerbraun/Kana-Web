@@ -11,7 +11,6 @@ DataMapper.setup(:default, ENV["DATABASE_URL"] || "sqlite:db/dev.db")
 
 DataMapper.auto_upgrade!
 
-
 facebook do
   api_key "095013a6174927028e52bc5c6652be1e"
   secret "6c06a0379eb2af215a66e76d95a75c4e"
@@ -21,21 +20,13 @@ facebook do
 end
 
 get "/" do
-  haml :index
-end
 
-get "/login" do
-  fb.require_login!
+  if fb[:user] then
+    haml :index
+  else
+    haml :facebook
+  end
 
-  groups = fb.groups.get :uid => fb[:user]
-  "
-  Hey there, now that you're a member I can tell what groups you're in on Facebook: <br>
-  #{groups.map{|g| g['name'] }.join('<br>')}
-  "
-end
-
-get "/facebook" do
-  haml :facebook
 end
 
 get '/' do

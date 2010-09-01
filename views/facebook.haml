@@ -6,5 +6,7 @@
   %br/
   Do you want to <a href="javascript:FB.Connect.logoutAndRedirect('/')">logout</a>?
 - else
-  Please login:
+  %h2 Anmeldung 
+  
+  %p Bitte melde dich an. Du kannst deinen Facebook-Account benutzen!
   %fb:login-button{:onlogin => 'document.location.reload(true)'}
