@@ -1,25 +1,31 @@
 require "rubygems"
+require "sinbook"
 require "sinatra"
 require "haml"
+require "datamapper"
 
-class Supermemo2
-# see http://www.supermemo.com/english/ol/sm2.htm
+require "models/Kana.rb"
 
 
-  def interval(n, ef)
-    return 1 if n == 1
-    return 6 if n == 2
-    return (interval(n-1) * ef).round
-  end
+DataMapper.setup(:default, ENV["DATABASE_URL"] || "sqlite:db/dev.db")
 
-  def ef(oldef,q)
-    ef = ef+(0.1-(5-q)*(0.08+(4-q)*0.02))
-    [ef,1.3].max
-  end
+DataMapper.auto_upgrade!
 
+
+facebook do
+  api_key "095013a6174927028e52bc5c6652be1e"
+  secret "6c06a0379eb2af215a66e76d95a75c4e"
+  app_id "115027275218758"
+  url "http://kanaweb.heroku.com/"
+  callback "http://kanaweb.heroku.com/"
 end
-
 
 get "/" do
   haml :index
 end
+
+get "/facebook" do
+  fb.require_login!
+  "Hi <fb:name uid=#{fb[:user]} useyou=false />!"
+end
+
