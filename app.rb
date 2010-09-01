@@ -16,7 +16,7 @@ facebook do
   api_key "095013a6174927028e52bc5c6652be1e"
   secret "6c06a0379eb2af215a66e76d95a75c4e"
   app_id "115027275218758"
-  url "http://kanaweb.heroku.com/"
+  url "http://kanaweb.heroku.com"
   callback "http://kanaweb.heroku.com/facebook"
 end
 
