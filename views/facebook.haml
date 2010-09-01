@@ -1,0 +1,10 @@
+- if fb[:user]
+  Hi,
+  %fb:profile-pic{:uid => fb[:user]}
+  %fb:name{:uid => fb[:user], :useyou => 'false', :firstnameonly => 'true'}
+  !
+  %br/
+  Do you want to <a href="javascript:FB.Connect.logoutAndRedirect('/')">logout</a>?
+- else
+  Please login:
+  %fb:login-button{:onlogin => 'document.location.reloa
