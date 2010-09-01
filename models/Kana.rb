@@ -5,7 +5,7 @@ class Kana
   property :utf8, String
   property :url, String
 
-  belongs_to :flipcard, :required => false
+  has n, :flipcards, :through => Resource 
 end
 
 class Flipcard
@@ -38,7 +38,7 @@ class Flipcard
     save
   end
 
-  has 1, :kana
+  has n, :kana, :through => Resource
   belongs_to :user
 end
 
