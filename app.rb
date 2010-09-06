@@ -3,6 +3,8 @@ require "sinbook"
 require "sinatra"
 require "haml"
 require "datamapper"
+require "rack-flash"
+require "dm-validations"
 
 require "models/Kana.rb"
 
@@ -11,7 +13,9 @@ DataMapper.setup(:default, ENV["DATABASE_URL"] || "sqlite:db/dev.db")
 
 DataMapper.auto_upgrade!
 
-enable :settings
+enable :sessions
+
+use Rack::Flash
 
 facebook do
   api_key "095013a6174927028e52bc5c6652be1e"
@@ -24,7 +28,7 @@ end
 helpers do
 
   def logged_in?
-    if session[:uid] then true end
+    return true if session[:uid] 
     
     if fb[:user] then
       session[:uid] = User.get_by_fb(fb[:user]).id
@@ -48,6 +52,47 @@ get "/" do
 
 end
 
+get "/login" do
+  haml :login
+end
+
+get "/learn" do
+  if logged_in? then
+    haml :learn
+  else
+    haml :login
+  end
+end
+
+post "/login" do
+  user = User.get_by_params(params)
+  session[:uid] = user.id if user
+  puts user.id
+  if user then
+    redirect "/"
+  else
+    flash[:error] = "Mhh, das hat nicht funktioniert. Versuch es nochmal."
+    redirect "/login"
+  end
+end
+
+get "/logout" do
+  haml :logout
+end
+
+post "/logout" do
+  session[:uid] = nil
+  redirect "/"
+end
+
+get "/register" do
+  haml :register
+end
+
+post "/register" do
+  User.new_from_params(params)
+  redirect "/login"
+end
 
 get '/receiver' do
   %[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"

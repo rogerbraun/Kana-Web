@@ -1,0 +1,8 @@
+%p Login
+-if flash[:error] then 
+  %p=flash[:error]
+%form{:action => "/login", :method => "post"}
+  %input{:name => "email"} Email:
+  %input{:type => "password", :name => "password"} Password:
+  %button Anmelden
+

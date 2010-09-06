@@ -2,6 +2,6 @@
 %img{:src => current_user.picture}
 %br
 %p 
-  Hallo,
-  %fb:name{:uid => fb[:user], :useyou => 'false', :firstnameonly => 'true'}
+  Hallo, 
+  =current_user.name.capitalize
   bald kannst du hier Kana lernen!
